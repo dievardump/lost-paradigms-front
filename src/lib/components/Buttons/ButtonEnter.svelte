@@ -46,7 +46,7 @@
 		text-transform: uppercase;
 		width: 100%;
 		height: 60px;
-		background: url(images/interface/button1.svg) center center no-repeat;
+		background: url(/images/interface/button1.svg) center center no-repeat;
 		overflow: hidden;
 	}
 

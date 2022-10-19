@@ -14,7 +14,7 @@
 		text-transform: uppercase;
 		width: 100%;
 		height: 60px;
-		background: url(images/interface/button-about-mobile.svg) center center no-repeat;
+		background: url(/images/interface/button-about-mobile.svg) center center no-repeat;
 		overflow: hidden;
 		color: #fff;
 	}
@@ -22,7 +22,7 @@
 	a.selected,
 	a:focus,
 	a:hover {
-		background-image: url(images/interface/button-about-mobile-on.svg);
+		background-image: url(/images/interface/button-about-mobile-on.svg);
 		text-decoration: none;
 		color: #000;
 	}
@@ -35,13 +35,13 @@
 
 	@screen sm {
 		a {
-			background-image: url(images/interface/button-about.svg);
+			background-image: url(/images/interface/button-about.svg);
 		}
 
 		a.selected,
 		a:focus,
 		a:hover {
-			background-image: url(images/interface/button-about-on.svg);
+			background-image: url(/images/interface/button-about-on.svg);
 		}
 	}
 </style>
