@@ -14,7 +14,7 @@
 	}
 
 	.bar {
-		with: 100%;
+		width: 100%;
 		height: 3px;
 		background-color: #fff;
 		opacity: 1;

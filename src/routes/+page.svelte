@@ -14,6 +14,7 @@
 	<meta name="description" content="Lost Paradigms | Mint" />
 </svelte:head>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <section on:click|capture={() => (state = (state + 1) % 4)}>
 	{#if $signer}
 		<Access>
