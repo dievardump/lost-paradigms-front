@@ -6,9 +6,7 @@
 	import PublicSale from '$lib/components/sections/Mint/PublicSale.svelte';
 	import { signer } from '$lib/modules/wallet';
 
-	let selected;
-
-	let state = $page.url.searchParams.get('state') || 1;
+	let state = $page.url.searchParams.get('state') || 0;
 </script>
 
 <svelte:head>
@@ -16,7 +14,7 @@
 	<meta name="description" content="Lost Paradigms | Mint" />
 </svelte:head>
 
-<section>
+<section on:click|capture={() => (state = (state + 1) % 4)}>
 	{#if $signer}
 		<Access>
 			<div class="access-granted">
@@ -24,13 +22,13 @@
 				<h2>ACCESS GRANTED</h2>
 			</div>
 		</Access>
-		{#if state == 1}
+		{#if state == 0}
 			<AllowList state="before" />
-		{:else if state == 2}
+		{:else if state == 1}
 			<AllowList state="ongoing" />
-		{:else if state == 3}
+		{:else if state == 2}
 			<PublicSale state="before" />
-		{:else if state == 4}
+		{:else if state == 3}
 			<PublicSale state="ongoing" />
 		{/if}
 	{:else}
@@ -40,13 +38,17 @@
 
 <style lang="postcss">
 	section {
-		@apply mx-auto flex flex-col;
-		max-width: 818px;
-		width: calc(100% - 2em);
+		@apply sm:mx-auto flex flex-col sm:max-w-[818px];
 		overflow: auto;
 	}
 
 	.access-granted {
 		@apply flex gap-4 items-center;
+	}
+
+	@screen sm {
+		section {
+			width: calc(100% - 2em);
+		}
 	}
 </style>

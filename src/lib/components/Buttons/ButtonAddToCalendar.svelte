@@ -5,9 +5,21 @@
 	<div class="button-add" />
 	<span>ADD TO MY CALENDAR</span>
 	<ul class="calendars">
-		<li><a href="https://calendar.google.com" target="_blank">ADD TO GOOGLE AGENDA</a></li>
-		<li><a href="https://calendar.google.com" target="_blank">ADD TO X AGENDA</a></li>
-		<li><a href="https://calendar.google.com" target="_blank">ADD TO Y AGENDA</a></li>
+		<li>
+			<a href="https://calendar.google.com" rel="external noreferrer" target="_blank"
+				>ADD TO GOOGLE AGENDA</a
+			>
+		</li>
+		<li>
+			<a href="https://calendar.google.com" rel="external noreferrer" target="_blank"
+				>ADD TO X AGENDA</a
+			>
+		</li>
+		<li>
+			<a href="https://calendar.google.com" rel="external noreferrer" target="_blank"
+				>ADD TO Y AGENDA</a
+			>
+		</li>
 	</ul>
 </button>
 

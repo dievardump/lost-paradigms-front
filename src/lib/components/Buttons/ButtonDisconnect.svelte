@@ -12,6 +12,8 @@
 		text-transform: uppercase;
 		color: var(--red);
 		line-height: 24px;
+		position: relative;
+		left: 100px;
 	}
 
 	span {
@@ -24,5 +26,11 @@
 
 	button:hover {
 		color: #fff;
+	}
+
+	@screen sm {
+		button {
+			left: 0;
+		}
 	}
 </style>

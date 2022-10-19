@@ -31,7 +31,7 @@
 					{#each members as member}
 						<div class="member">
 							<div class="social">
-								<a href={member.twitter} target="_blank">
+								<a href={member.twitter} rel="external noreferrer" target="_blank">
 									<img src="/images/pages/team/twitter.png" alt="Twitter of {member.name}" />
 								</a>
 							</div>

@@ -1,8 +1,14 @@
 <script>
 	import Footer from '$lib/components/sections/Footer.svelte';
 	import Header from '$lib/components/sections/Header.svelte';
-	import Interface from '$lib/components/sections/Interface.svelte';
+	import Interface from '$lib/components/sections/Interface/Interface.svelte';
+	import { init } from '$lib/modules/wallet';
+	import { onMount } from 'svelte';
 	import '../app.css';
+
+	onMount(() => {
+		init(window.ethers, false);
+	});
 </script>
 
 <div class="background">
@@ -20,7 +26,7 @@
 </main>
 <Footer />
 
-<style>
+<style lang="postcss">
 	.background {
 		position: absolute;
 		width: 100%;
@@ -53,7 +59,13 @@
 		max-width: 1024px;
 		margin: 0 auto;
 		box-sizing: border-box;
-		padding: 144px 0;
+		padding: 144px 0 0;
 		height: 100vh;
+	}
+
+	@screen sm {
+		main {
+			padding: 144px 0;
+		}
 	}
 </style>

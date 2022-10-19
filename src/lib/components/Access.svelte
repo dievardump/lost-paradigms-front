@@ -10,7 +10,7 @@
 		flex: 0 0 auto;
 		position: relative;
 		margin: 0 auto;
-		@apply flex flex-col items-center justify-center gap-4;
+		@apply hidden sm:flex flex-col items-center justify-center gap-4;
 	}
 
 	section::before {

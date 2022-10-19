@@ -10,7 +10,6 @@
 	async function webModal() {
 		await connectWeb3Modal();
 	}
-	// $: console.log($checkedWallet, $connected, $hasWallet, $chainId);
 </script>
 
 {#if !$checkedWallet}

@@ -1,4 +1,5 @@
 <script>
+	import MobilePageBg from '../MobilePageBg.svelte';
 	import MintBox from './MintBox.svelte';
 
 	export let state = '';
@@ -18,6 +19,7 @@
 </script>
 
 <section>
+	<MobilePageBg />
 	<header />
 	<div class="content">
 		<h1><span>_</span>PUBLIC SALE<span>_</span></h1>
@@ -51,12 +53,20 @@
 					The public mint will immediately follow the allowlist mint taking place on 11/08/2022.
 					Maximum of 10 mints per wallet.<br /> All minters will be responsible to pay ethereum gas fees.
 				</p>
-				<a href="https://premint.xyz" target="_blank" class="enter-premint">
+				<a
+					href="https://premint.xyz"
+					rel="external noreferrer"
+					target="_blank"
+					class="enter-premint"
+				>
 					<div class="enter-premint__icon" />
 					<span>Register to be entered in<br />premint raffle</span>
 				</a>
-				<a href="https://google.com" target="_blank" class="should-allowlist"
-					>? my wallet should be on the allowlist ?</a
+				<a
+					href="https://google.com"
+					rel="external noreferrer"
+					target="_blank"
+					class="should-allowlist">? my wallet should be on the allowlist ?</a
 				>
 			</div>
 		{/if}
@@ -65,51 +75,19 @@
 
 <style lang="postcss">
 	section {
-		@apply flex flex-col mt-4;
+		@apply flex flex-col mt-4 pt-16 sm:pt-0;
 		flex: 0 0 auto;
 		overflow: hidden;
-	}
-
-	header {
-		text-align: center;
-		height: 37px;
-		flex: 0 0 auto;
+		height: calc(100vh - 144px);
 		position: relative;
-		z-index: -1;
-	}
-
-	header::before {
-		content: '';
-		position: absolute;
-		z-index: -2;
-		left: 50%;
-		top: 0;
-		height: 100vh;
-		width: 818px;
-		transform: translate(-50%, 0);
-		background: rgba(2, 14, 17, 0.65);
-		backdrop-filter: blur(7.5px);
-		clip-path: path('M0 22L41 22L65 1L290 1L313 22L800 22L815 37L815 2000L0 2000z');
-	}
-
-	header::after {
-		content: '';
-		background: url(/images/interface/top-decoration-4.png) no-repeat center center;
-		position: absolute;
-		z-index: -1;
-		height: 100%;
-		width: 100%;
-		/* height: 65px; */
-		left: 0;
-		top: 0;
-		background-size: auto 100%;
+		padding-bottom: 90px;
 	}
 
 	.content {
-		@apply flex flex-col gap-4 items-center justify-center pb-24;
+		@apply flex flex-col gap-4 items-center sm:justify-center pb-24;
 		flex: 1 1 0;
-		border: 1px solid rgba(32, 179, 211, 1);
 		border-top: none;
+		overflow: auto;
 	}
 
 	h1 {
@@ -217,5 +195,46 @@
 		border: 1px solid #fff;
 		color: #fff;
 		text-decoration: none;
+	}
+
+	@screen sm {
+		section {
+			height: auto;
+			padding-bottom: 0;
+		}
+		header {
+			text-align: center;
+			height: 37px;
+			flex: 0 0 auto;
+			position: relative;
+			z-index: -1;
+		}
+
+		header::before {
+			content: '';
+			position: absolute;
+			z-index: -2;
+			left: 50%;
+			top: 0;
+			height: 100vh;
+			width: 818px;
+			transform: translate(-50%, 0);
+			background: rgba(2, 14, 17, 0.65);
+			backdrop-filter: blur(7.5px);
+			clip-path: path('M0 22L41 22L65 1L290 1L313 22L800 22L815 37L815 2000L0 2000z');
+		}
+
+		header::after {
+			content: '';
+			background: url(/images/interface/top-decoration-4.png) no-repeat center center;
+			position: absolute;
+			z-index: -1;
+			height: 100%;
+			width: 100%;
+			/* height: 65px; */
+			left: 0;
+			top: 0;
+			background-size: auto 100%;
+		}
 	}
 </style>

@@ -1,5 +1,6 @@
 <script>
 	import { shortenAddress } from '$lib/modules/utils';
+	import BigButtonEnter from '../Buttons/BigButtonEnter.svelte';
 	import ButtonEnter from '../Buttons/ButtonEnter.svelte';
 </script>
 
@@ -16,46 +17,56 @@
 		<div class="socials">
 			<ul>
 				<li>
-					<a class="os" href="https://opensea.io" target="_blank">
+					<a class="os" href="https://opensea.io" rel="external noreferrer" target="_blank">
 						<img src="/images/interface/opensea.svg" alt="OpenSea" />
 					</a>
 				</li>
 				<li>
-					<a class="tw" href="https://twitter.com/LostParadigms" target="_blank">
+					<a
+						class="tw"
+						href="https://twitter.com/LostParadigms"
+						rel="external noreferrer"
+						target="_blank"
+					>
 						<img src="/images/interface/twitter.svg" alt="Twitter" />
 					</a>
 				</li>
 				<li>
-					<a class="discord" href="http://discord.gg/cyberbrokers" target="_blank">
+					<a
+						class="discord"
+						href="http://discord.gg/cyberbrokers"
+						rel="external noreferrer"
+						target="_blank"
+					>
 						<img src="/images/interface/discord.svg" alt="Discord" />
 					</a>
 				</li>
 			</ul>
 		</div>
 	</div>
+	<div class="enter-after">
+		<BigButtonEnter />
+	</div>
 </header>
 
 <style lang="postcss">
 	header {
-		width: 980px;
-		height: 143px;
+		width: 100%;
 		position: absolute;
 		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		background: url(/images/interface/console-shape-top.png) center center no-repeat transparent;
 	}
 
 	.content {
-		@apply flex items-center justify-between;
-		padding: 0 110px;
-		height: 100px;
+		@apply flex items-center justify-between px-4;
+		height: 60px;
 		width: 100%;
 		position: relative;
+		background-color: black;
 	}
 
 	.logo {
-		width: 200px;
+		max-width: 200px;
+		width: 40%;
 		height: auto;
 	}
 
@@ -101,5 +112,30 @@
 
 	li a img {
 		display: none;
+	}
+
+	.enter-after {
+		@apply block sm:hidden;
+	}
+
+	.enter {
+		@apply hidden sm:block;
+	}
+
+	@screen sm {
+		header {
+			width: 980px;
+			height: 143px;
+			background: url(/images/interface/console-shape-top.png) center center no-repeat transparent;
+
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		.content {
+			background-color: transparent;
+			height: 100px;
+			padding: 0 110px;
+		}
 	}
 </style>

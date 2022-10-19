@@ -1,5 +1,10 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+
+	/**
+	 * @type {NodeJS.Timeout}
+	 */
+	let timeout;
 
 	let from = 0;
 	let to = 0;
@@ -30,13 +35,14 @@
 		angle = ~~(from + (to - from) * a);
 
 		if (a >= 1) {
-			setTimeout(start, 1000 / 25);
+			timeout = setTimeout(start, 1000 / 25);
 		} else {
-			setTimeout(onAnimate, 1000 / 25);
+			timeout = setTimeout(onAnimate, 1000 / 25);
 		}
 	}
 
 	onMount(start);
+	onDestroy(() => clearTimeout(timeout));
 </script>
 
 <img style="transform: rotate({angle}deg);" src="/images/interface/animated-orb.svg" alt="" />

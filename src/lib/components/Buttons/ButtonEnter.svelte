@@ -1,14 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { shortenAddress } from '$lib/modules/utils';
-	import {
-		connect,
-		disconnect,
-		connected,
-		signer,
-		signerAddress,
-		connectAccount
-	} from '$lib/modules/wallet';
+	import { disconnect, signer, signerAddress, connectAccount } from '$lib/modules/wallet';
 	import ButtonDisconnect from './ButtonDisconnect.svelte';
 
 	let hover = false;
@@ -18,7 +11,6 @@
 	}
 
 	async function onConnect() {
-		await connect();
 		await connectAccount();
 		goto('/');
 	}

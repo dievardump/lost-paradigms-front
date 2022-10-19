@@ -39,6 +39,11 @@
 								/>
 							</svg>
 						</button>
+						{#if selected === question}
+							<div class="answer-in">
+								{@html selected.answer}
+							</div>
+						{/if}
 					</li>
 				{/each}
 			</ul>
@@ -59,7 +64,7 @@
 	}
 
 	.content {
-		@apply grid grid-cols-3;
+		@apply grid sm:grid-cols-3;
 		font-size: var(--font-s);
 		overflow: hidden;
 	}
@@ -96,6 +101,11 @@
 		height: 24px;
 		background-color: var(--blue-pale);
 		border-radius: 50%;
+		flex: 0 0 auto;
+	}
+
+	button span {
+		@apply text-left;
 	}
 
 	button svg {
@@ -111,9 +121,13 @@
 		background-color: var(--blue);
 	}
 
+	.selected svg {
+		transform: rotate(90deg);
+	}
+
 	.selected path,
 	button:hover path {
-		stroke: var(--blue);
+		stroke: #fff;
 	}
 
 	li:not(.selected) button:hover {
@@ -135,11 +149,21 @@
 	}
 
 	.answer {
-		@apply p-8 flex flex-col gap-8;
+		@apply hidden sm:block p-8 flex flex-col gap-8;
 	}
 
 	.answer :global(strong),
 	.answer :global(a) {
 		color: var(--blue);
+	}
+
+	.answer-in {
+		@apply sm:hidden px-16 py-8;
+	}
+
+	@screen sm {
+		.selected svg {
+			transform: none;
+		}
 	}
 </style>
