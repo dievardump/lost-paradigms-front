@@ -84,7 +84,7 @@
 	}
 
 	.content {
-		@apply flex flex-col gap-4 items-center sm:justify-center pb-24;
+		@apply flex flex-col gap-4 items-center pb-24;
 		flex: 1 1 0;
 		border-top: none;
 		overflow: auto;
@@ -201,6 +201,8 @@
 		section {
 			height: auto;
 			padding-bottom: 0;
+			max-width: 816px;
+			flex: 1 1 0;
 		}
 		header {
 			text-align: center;
@@ -217,7 +219,7 @@
 			left: 50%;
 			top: 0;
 			height: 100vh;
-			width: 818px;
+			width: 816px;
 			transform: translate(-50%, 0);
 			background: rgba(2, 14, 17, 0.65);
 			backdrop-filter: blur(7.5px);
@@ -235,6 +237,11 @@
 			left: 0;
 			top: 0;
 			background-size: auto 100%;
+		}
+
+		.content {
+			border: 1px solid var(--blue-second);
+			border-top: 0;
 		}
 	}
 </style>

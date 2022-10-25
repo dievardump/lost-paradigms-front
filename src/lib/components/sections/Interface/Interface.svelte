@@ -7,27 +7,28 @@
 	<img class="battery" src="/images/interface/battery.svg" alt="" />
 	<img class="slashes-left" src="/images/interface/slashes-left.svg" alt="" />
 	<img class="slashes-right" src="/images/interface/slashes-right.svg" alt="" />
+	<div class="animated-orb">
+		<AnimatedOrb />
+	</div>
 	<div class="big">
 		<img class="union-left" src="/images/interface/union-left.png" alt="" />
 		<img class="union-right" src="/images/interface/union-right.png" alt="" />
 		<img class="dont-be-afraid" src="/images/interface/dont-be-afraid.png" alt="" />
+		<div class="tunnel-vision">
+			<TunnelVision />
+		</div>
 	</div>
 	<div class="large">
 		<div class="union-left-top" />
 		<div class="union-left-bottom" />
 		<div class="union-right-top" />
 		<div class="union-right-bottom" />
-		<div class="animated-orb">
-			<AnimatedOrb />
-		</div>
-		<div class="tunnel-vision">
-			<TunnelVision />
-		</div>
 	</div>
 </div>
 
 <style lang="postcss">
 	.interface {
+		@apply hidden md:block;
 		position: absolute;
 		overflow: visible;
 		width: 100%;

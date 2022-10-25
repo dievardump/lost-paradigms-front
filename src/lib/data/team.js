@@ -14,7 +14,7 @@ const gabriel = {
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
 	content: `
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor massa. Cum sociin  natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec Ligula aenean ipsum elit montes.</p>
+<p>Gabriel - Gabriel is a digital artist with a passion for Futurism and Robotics. While developing his skills as a automation technician and a IT technician through his schooling at FATEC , Gabriel’s interest in the potential of blockchain technology developed. After 2020 he committed to investing and building in Web3. Throughout his current experience working as a digital artist and designer, Gabriel's professional roles have ranged from collaborator or lead artist to founder (MechArcade).</p>
 `
 };
 
@@ -23,7 +23,7 @@ const visual = {
 	twitter: 'https://twitter.com/visual_swim',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
-	content: `<p>here comes visual.</p>`
+	content: `<p>Visual is a 3d artist, architect, and designer with 10 years' professional experience, ranging from masterplanning to theatre design. He currently specialises in VR and creating meaningful digital experiences that tell a story. He has a keen interest of evolving role of the Architect in the Metaverse and web3.</p>`
 };
 
 const crew_nft = {
@@ -31,7 +31,7 @@ const crew_nft = {
 	twitter: 'https://twitter.com/crew_nft',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
-	content: `<p>here comes creeeeew.</p>`
+	content: `<p>Crew is an UI/UX Designer, passionate builder,  web3 enthusiast and gamer. Currently the  UX/UI Lead for VELA exchange and designer for multiple Web 3 projects.</p>`
 };
 
 const dvd = {
@@ -47,7 +47,7 @@ const mike = {
 	twitter: 'https://twitter.com/0xMikeMikeMike',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
-	content: `<p>here comes mike^3.</p>`
+	content: `<p>mikemikemike is a Web3 engineer with 15+ years experience working as a software engineer in the Financial Services industry. He has done web3 consulting for various companies and NFT projects. He is a dev for a few NFT projects including Lost SamuRise, Floating City and working at a startup building a new product, bali.xyz</p>`
 };
 
 const tip = {
@@ -55,7 +55,7 @@ const tip = {
 	twitter: 'https://twitter.com/tip_t03',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
-	content: `<p>here comes TIP_T03/p>`
+	content: `<p>TIP_T03 is a Web3 engineer with 5+ years of experience working as a consultant for companies in the medical, aerospace and defense industries. Since getting into web3, he has worked on multiple NFT projects including Lost SamuRise and Floating City. He is also building a new product with some frens called bali.xyz.</p>`
 };
 
 const dot = {
@@ -63,7 +63,7 @@ const dot = {
 	twitter: 'https://twitter.com/digidot',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
-	content: `<p>here comes 🤖 Dot the Bot🤖/p>`
+	content: `<p>Dot is a sentient bot who enjoys helping dope ass artists and builders build dope ass shit where and when she can. She functions properly 73.8% of the time.</p>`
 };
 
 const etta = {
@@ -80,6 +80,6 @@ const etta = {
 
 export default {
 	artists: [gabriel, visual],
-	devs: [crew_nft, dvd, mike, tip],
-	organizers: [dot, etta]
+	devs: [mike, crew_nft, dvd, tip],
+	organizers: [etta, dot]
 };

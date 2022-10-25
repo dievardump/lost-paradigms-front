@@ -2,29 +2,110 @@
 	import ButtonAddToCalendar from '$lib/components/Buttons/ButtonAddToCalendar.svelte';
 	import MintBox from './MintBox.svelte';
 
-	import allowlist from '$lib/data/allowlist';
 	import MobilePageBg from '../MobilePageBg.svelte';
+
+	import { chainId, signerAddress } from '$lib/modules/wallet';
+	import Loader from '$lib/components/utils/Loader.svelte';
+	import {
+		allowlistMint,
+		getAllowlistPrice,
+		getFreeMintClaimed,
+		getUserAllowlistMinted
+	} from '$lib/modules/contracts/nft';
 
 	export let state = '';
 
-	const PRICE = 0.0222;
+	// @TODO: dynamic
+	let PRICE = ethers.BigNumber.from(0);
 
-	let freeAllotment = 1;
-	let reducedAllotment = 16;
+	let loading;
 
-	let price = 0;
+	let allowlist = {};
+
+	let userAllotment = null;
+	let freeAllotment = 0;
+	let reducedAllotment = 0;
+	let signature;
+
 	let priceLabel = 'FREE';
 
-	const max = freeAllotment + reducedAllotment;
+	let availableFree = 0;
+	let availableReduced = 0;
 
-	let amount = freeAllotment + reducedAllotment;
+	let amount = availableFree + availableReduced;
+	let max = amount;
 
-	$: {
-		price = Math.max(0, amount - freeAllotment) * PRICE;
-		priceLabel = `${price.toFixed(4)} ETH`;
-		if (price == 0) {
-			priceLabel = 'FREE';
+	$: price = PRICE.mul(Math.max(0, amount - availableFree));
+	$: priceLabel = price == 0 ? 'FREE' : `${ethers.utils.formatEther(price)} ETH`;
+
+	$: fetchData($chainId);
+	$: selectUserAllotment(allowlist, $signerAddress);
+
+	async function fetchData(chainId) {
+		loading = true;
+		try {
+			allowlist = {};
+			if (chainId) {
+				PRICE = await getAllowlistPrice();
+				allowlist = await fetch(`/allowlists/${parseInt(chainId)}.json`).then((res) => res.json());
+			}
+		} catch (e) {}
+		loading = false;
+	}
+
+	async function selectUserAllotment(allowlist, signerAddress) {
+		loading = true;
+		try {
+			userAllotment = allowlist?.[signerAddress];
+			freeAllotment = userAllotment?.freeMints ?? 0;
+			reducedAllotment = userAllotment?.reducedMints ?? 0;
+
+			// now remove how many free this user already minted
+			console.log(signerAddress);
+			const userFreeMinted = await getFreeMintClaimed(signerAddress);
+			const userAllowListMinted = await getUserAllowlistMinted(signerAddress);
+
+			availableFree = freeAllotment - userFreeMinted;
+			availableReduced = reducedAllotment - userAllowListMinted;
+
+			// freeAllotment -= userFreeMinted;
+			signature = userAllotment?.signature ?? '';
+
+			amount = availableFree + availableReduced;
+			max = amount;
+		} catch (e) {
+			console.log(e);
 		}
+		loading = false;
+	}
+
+	async function onSubmit() {
+		// TODO: open mint modal
+		loading = true;
+		try {
+			const freeToMint = Math.min(amount, availableFree);
+			const reducedToMint = Math.max(0, amount - availableFree);
+
+			console.log(freeToMint, reducedToMint);
+
+			const tx = await allowlistMint(
+				signature,
+				freeAllotment,
+				reducedAllotment,
+				freeToMint,
+				reducedToMint,
+				price
+			);
+
+			console.log(tx.hash);
+
+			const receipt = await tx.wait();
+			console.log(receipt);
+		} catch (e) {
+			console.log(e);
+		}
+		loading = false;
+		selectUserAllotment(allowlist, $signerAddress);
 	}
 </script>
 
@@ -33,63 +114,80 @@
 	<header />
 	<div class="content">
 		<h1><span>_</span>ALLOWLIST<span>_</span></h1>
-		<p>this wallet has a mint allotment of:</p>
-		<div class="wrapper">
-			<div class="box allotment">
-				<div class="box__line">
-					<div class="box__cell amount">
-						<div class="label"><strong>{freeAllotment} @</strong></div>
-					</div>
-					<div class="box__cell type">
-						<div class="eth-logo"><img src="/images/interface/logo-ethereum.svg" alt="" /></div>
-						<div class="label">
-							<strong>FREE</strong>
-							<span>PLUS GAS</span>
-						</div>
-					</div>
+		{#if loading}
+			<Loader />
+		{:else}
+			{#if !userAllotment}
+				<div class="nolist">
+					<p>No allowlist found for wallet</p>
+					<p>{$signerAddress}</p>
 				</div>
-				<div class="box__line">
-					<div class="box__cell amount">
-						<div class="label"><strong>{reducedAllotment} @</strong></div>
-					</div>
-					<div class="box__cell type">
-						<div class="eth-logo"><img src="/images/interface/logo-ethereum.svg" alt="" /></div>
-						<div class="label">
-							<strong>{PRICE}</strong>
-							<span>REDUCED COST</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			{#if state == 'ongoing'}
-				<div class="minter">
-					<MintBox bind:amount {max} price={priceLabel} on:submit />
-				</div>
+			{:else if max == 0}
+				<p>You already minted your full allocation.</p>
 			{:else}
-				<p>The 24 hour allowlist mint window begins:</p>
-				<div class="box start">
-					<div class="box__line">
-						<div class="box__cell">
-							<div class="label">
-								<strong>11/08</strong>
-								<span>2022</span>
+				<p>this wallet has a mint allotment of:</p>
+				<div class="wrapper">
+					<div class="box allotment">
+						<div class="box__line">
+							<div class="box__cell amount">
+								<div class="label"><strong>{availableFree} @</strong></div>
+							</div>
+							<div class="box__cell type">
+								<div class="eth-logo"><img src="/images/interface/logo-ethereum.svg" alt="" /></div>
+								<div class="label">
+									<strong>FREE</strong>
+									<span>PLUS GAS</span>
+								</div>
 							</div>
 						</div>
-						<div class="box__cell">
-							<div class="label">
-								<strong>12:00</strong>
-								<span>EST</span>
+						<div class="box__line">
+							<div class="box__cell amount">
+								<div class="label"><strong>{availableReduced} @</strong></div>
+							</div>
+							<div class="box__cell type">
+								<div class="eth-logo"><img src="/images/interface/logo-ethereum.svg" alt="" /></div>
+								<div class="label">
+									<strong>{ethers.utils.formatEther(PRICE)}</strong>
+									<span>REDUCED COST</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<p>
-					With public mint immediately after. While the allowlist can mint anytime, supplies are
-					only guaranteed during the 24 hour window.
-				</p>
-				<ButtonAddToCalendar />
 			{/if}
-		</div>
+			<div class="wrapper">
+				{#if userAllotment && state == 'ongoing'}
+					{#if max > 0}
+						<div class="minter">
+							<MintBox bind:amount {max} price={priceLabel} on:submit={onSubmit} />
+						</div>
+					{/if}
+				{:else}
+					<p>The 24 hour allowlist mint window begins:</p>
+					<div class="box start">
+						<div class="box__line">
+							<div class="box__cell">
+								<div class="label">
+									<strong>08/11</strong>
+									<span>2022</span>
+								</div>
+							</div>
+							<div class="box__cell">
+								<div class="label">
+									<strong>12:00</strong>
+									<span>EST</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p>
+						With public mint immediately after. While the allowlist can mint anytime, supplies are
+						only guaranteed during the 24 hour window.
+					</p>
+					<ButtonAddToCalendar />
+				{/if}
+			</div>
+		{/if}
 	</div>
 </section>
 
@@ -104,7 +202,7 @@
 	}
 
 	.content {
-		@apply flex flex-col gap-4 items-center sm:justify-center pb-24;
+		@apply flex flex-col gap-4 items-center  pb-24;
 		flex: 1 1 0;
 		border-top: none;
 		overflow: auto;
@@ -162,10 +260,16 @@
 		@apply mt-8;
 	}
 
+	.nolist {
+		@apply py-6 text-center;
+	}
+
 	@screen sm {
 		section {
 			height: auto;
 			padding-bottom: 0;
+			max-width: 816px;
+			flex: 1 1 0;
 		}
 
 		header {
@@ -183,7 +287,7 @@
 			left: 50%;
 			top: 0;
 			height: 100vh;
-			width: 818px;
+			width: 816px;
 			transform: translate(-50%, 0);
 			background: rgba(2, 14, 17, 0.65);
 			backdrop-filter: blur(7.5px);
@@ -201,6 +305,11 @@
 			left: 0;
 			top: 0;
 			background-size: auto 100%;
+		}
+
+		.content {
+			border: 1px solid var(--blue-second);
+			border-top: 0;
 		}
 	}
 </style>

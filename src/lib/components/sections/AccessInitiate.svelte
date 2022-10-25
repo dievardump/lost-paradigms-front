@@ -3,7 +3,7 @@
 </script>
 
 <Access>
-	<h2 style="color: var(--red);">ACCESS REFUSED</h2>
+	<h2 style="color: var(--yellow);">INITIATE ACCESS</h2>
 	<div>
 		<em>please connect your wallet</em>
 	</div>

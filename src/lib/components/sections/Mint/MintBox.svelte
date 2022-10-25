@@ -22,7 +22,8 @@
 	}
 </script>
 
-<div class="mint-box">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="mint-box" on:click|stopPropagation>
 	<div class="selector">
 		<button disabled={amount <= 1} on:click={() => amount--}
 			><img src="/images/interface/minus-thin.svg" alt="Less" /></button

@@ -6,8 +6,12 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 
-	onMount(() => {
-		init(window.ethers, false);
+	onMount(async () => {
+		try {
+			await init(window.ethers, false);
+		} catch (e) {
+			console.log('No web3 provider');
+		}
 	});
 </script>
 

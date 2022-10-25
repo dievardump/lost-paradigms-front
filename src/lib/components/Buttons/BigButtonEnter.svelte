@@ -1,7 +1,14 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { shortenAddress } from '$lib/modules/utils';
-	import { disconnect, signer, signerAddress, connectAccount } from '$lib/modules/wallet';
+	import {
+		disconnect,
+		signer,
+		signerAddress,
+		connectAccount,
+		hasWallet
+	} from '$lib/modules/wallet';
+	import { connectWeb3Modal } from '$lib/modules/wallet/web3Modal';
 	import ButtonDisconnect from './ButtonDisconnect.svelte';
 
 	let hover = false;
@@ -11,7 +18,11 @@
 	}
 
 	async function onConnect() {
-		await connectAccount();
+		if ($hasWallet) {
+			await connectAccount();
+		} else {
+			await connectWeb3Modal();
+		}
 		goto('/');
 	}
 </script>

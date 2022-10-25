@@ -1,0 +1,27 @@
+{
+	"0xD969F09fe55FfB0e64954fc51E2D8af764caa8b0": {
+		"freeMints": 4,
+		"reducedMints": 13,
+		"signature": "0x274f7ff9ba33434bad5a9572a6d9a65be59f8dcbcc23c3070b350779af168fb473e11de7b3c8b430e0dae3237dc17400772149f83e7323cd019e77df5f5b5d821c"
+	},
+	"0x3a71c05b9666e49B5dC15Df245b6D16D8F66f710": {
+		"freeMints": 5,
+		"reducedMints": 14,
+		"signature": "0xa2191b0339772e3adcd9d86f4fa5f7f1014ba05a9586a197e0eabf65d8cee32d0b86044e7ffceca8b0f7b1eed302655c0d1b118972692990217fc36ad26037661c"
+	},
+	"0x9ef4314BEb6bab7236eAaaa261747c7cD5885372": {
+		"freeMints": 1,
+		"reducedMints": 9,
+		"signature": "0xfa8d52d3fa41fffe4b523b56471f8db895afeeffac827a0ba7d6fa34c2f6f11f0b075fc284a3fb919e7991da60293e94da96e1e09038691d7f86f3effad83feb1b"
+	},
+	"0x7B7D2B971a7aF3F5fb96F3047d04E4D5DaE86fB4": {
+		"freeMints": 1,
+		"reducedMints": 10,
+		"signature": "0xb968c9958f1ecfac5d2f2fe1c186f90eec88a9b4b65aa7854363bded7fc9f3d1441cc3f7328a73e5488632166c0e27480120f59a21d35587a996104b9d775c571c"
+	},
+	"0xF4274229bEe63d4A6D1edDE6919aFa815f6e1a24": {
+		"freeMints": 4,
+		"reducedMints": 5,
+		"signature": "0x08320dddf08b5db2aa97626773e954bdecea45f368cec81c36e5e266b801dc6773a915239ab7034c3302efd8091e23fc2d964a3af6f4340a64ec537747dc91691b"
+	}
+}
