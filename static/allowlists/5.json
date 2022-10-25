@@ -23,5 +23,10 @@
 		"freeMints": 4,
 		"reducedMints": 5,
 		"signature": "0x08320dddf08b5db2aa97626773e954bdecea45f368cec81c36e5e266b801dc6773a915239ab7034c3302efd8091e23fc2d964a3af6f4340a64ec537747dc91691b"
+	},
+	"0x3443Ab9A6bc24EE3C7B196E3080082bb21d9Ba6F": {
+		"freeMints": 5,
+		"reducedMints": 17,
+		"signature": "0xeaf2d24640043e92ca70a49670e6f1b8946392e7c521d2bca8d68caefbcb30f3024f1d3a084f4ecf7ad0851aa3e2a2fed6a4442c3db1f75bc381b0007881f4161b"
 	}
 }

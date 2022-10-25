@@ -1,7 +1,18 @@
 <script>
+	import { getNetwork } from '$lib/modules/networks';
+	import { chainId } from '$lib/modules/wallet';
 	import { shortenAddress } from '$lib/modules/utils';
 	import BigButtonEnter from '../Buttons/BigButtonEnter.svelte';
 	import ButtonEnter from '../Buttons/ButtonEnter.svelte';
+
+	let opensea = 'https://opensea.io/collection/lostparadigms';
+
+	$: {
+		if ($chainId) {
+			const network = getNetwork($chainId);
+			opensea = network.nft.opensea;
+		}
+	}
 </script>
 
 <header>
@@ -17,7 +28,7 @@
 		<div class="socials">
 			<ul>
 				<li>
-					<a class="os" href="https://opensea.io" rel="external noreferrer" target="_blank">
+					<a class="os" href={opensea} rel="external noreferrer" target="_blank">
 						<img src="/images/interface/opensea.svg" alt="OpenSea" />
 					</a>
 				</li>

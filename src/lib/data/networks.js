@@ -19,12 +19,12 @@ export default {
 		name: 'Goerli',
 		test: true,
 		etherscan: 'https://goerli.etherscan.io',
-		opensea: 'https://testnets.opensea.io/assets/0xe5f547b5061686548F3B73eF5DB47e889eF018Ea/',
-		looksrare:
-			'https://goerli.looksrare.org/collections/0xe5f547b5061686548F3B73eF5DB47e889eF018Ea/',
 		nft: {
 			address: '0xe5f547b5061686548F3B73eF5DB47e889eF018Ea',
-			abi: abis.NFT
+			abi: abis.NFT,
+			opensea: 'https://testnets.opensea.io/collection/lostparadigms',
+			looksrare:
+				'https://goerli.looksrare.org/collections/0xe5f547b5061686548F3B73eF5DB47e889eF018Ea/'
 		}
 	},
 	31337: {
