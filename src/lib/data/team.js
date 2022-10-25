@@ -28,7 +28,7 @@ const visual = {
 
 const crew_nft = {
 	name: 'CrewNFT',
-	twitter: 'https://twitter.com/crew_nft',
+	twitter: 'https://twitter.com/crewnft_',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
 	content: `<p>Crew is an UI/UX Designer, passionate builder,  web3 enthusiast and gamer. Currently the  UX/UI Lead for VELA exchange and designer for multiple Web 3 projects.</p>`
