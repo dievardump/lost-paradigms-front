@@ -35,11 +35,17 @@
 									<img src="/images/pages/team/twitter.png" alt="Twitter of {member.name}" />
 								</a>
 							</div>
-							<button class="member-data" on:click={() => (selected = { group, member })}>
+							<button
+								class="member-data"
+								class:selected={selected?.group == group && selected?.member == member}
+								on:click={() => (selected = { group, member })}
+							>
 								<div class="thumbnail">
-									<img src={member.thumbnail} alt={member.name} />
+									<div class="thumb-wrapper">
+										<img src={member.image} alt={member.name} />
+									</div>
 								</div>
-								<span> {member.name}</span>
+								<span class="name"> {member.name}</span>
 							</button>
 						</div>
 					{/each}
@@ -105,8 +111,23 @@
 	}
 
 	.member-data .thumbnail {
+		width: 106px;
+		height: 106px;
+		overflow: hidden;
 		border: 1px solid var(--blue-pale);
-		padding: 1px;
+	}
+
+	.thumb-wrapper {
+		position: relative;
+		overflow: hidden;
+		width: 102px;
+		height: 102px;
+		margin: 1px;
+	}
+
+	.thumbnail img {
+		width: 100%;
+		height: auto;
 	}
 
 	.member:nth-child(2) .social {
@@ -120,7 +141,15 @@
 		text-transform: uppercase;
 	}
 
+	button.selected .thumbnail {
+		border-color: white;
+	}
+
 	.member:nth-child(1) button span {
 		align-self: flex-end;
+	}
+
+	.name {
+		white-space: nowrap;
 	}
 </style>

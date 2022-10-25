@@ -13,7 +13,9 @@
 				on:click={() => (selected = { group, member })}
 				class:selected={selected?.member == member}
 			>
-				<img src={member.thumbnail} alt={member.name} />
+				<div class="wrapper">
+					<img src={member.image} alt={member.name} />
+				</div>
 			</button>
 		{/each}
 	{/each}
@@ -36,18 +38,20 @@
 		transition: transform 0.3s;
 	}
 
+	.wrapper {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		border: 3px solid var(--blue-pale);
+	}
+
 	button:hover,
 	button.selected {
 		transform: scale(1.15, 1.15);
 	}
 
-	button img {
-		display: block;
-		border: 3px solid var(--blue-pale);
-	}
-
-	button:hover img,
-	button.selected img {
+	button:hover .wrapper,
+	button.selected .wrapper {
 		border: 3px solid #fff;
 	}
 </style>

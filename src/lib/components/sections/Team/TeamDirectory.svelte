@@ -98,6 +98,12 @@
 		border: 3px dotted var(--blue-pale);
 	}
 
+	.visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
 	.data {
 		@apply p-8 flex flex-col gap-8;
 		border: 2px solid var(--blue-pale);

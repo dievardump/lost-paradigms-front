@@ -15,7 +15,6 @@
 		} else {
 			teamComponent = TeamListRow;
 		}
-		console.log(e.matches, teamComponent);
 	}
 
 	onMount(() => {

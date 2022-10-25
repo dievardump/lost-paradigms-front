@@ -28,7 +28,7 @@
 				>
 			</div>
 			<div class="view">
-				<img class="sizzer" src={selected.member.image} alt={selected.member.name} />
+				<img class="sizzer" src="/images/interface/team-mobile-mask.png" alt="" />
 				<div class="visual" class:hidden={open}>
 					<img src={selected.member.image} alt={selected.member.name} />
 				</div>
@@ -112,6 +112,12 @@
 		background: url(/images/interface/team-mobile-card-around.png) no-repeat center center
 			transparent;
 		background-size: 100% 100%;
+	}
+
+	.visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.data {

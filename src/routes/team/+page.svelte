@@ -14,7 +14,6 @@
 		} else {
 			component = TeamMobile;
 		}
-		console.log(e.matches, component);
 	}
 
 	onMount(() => {
