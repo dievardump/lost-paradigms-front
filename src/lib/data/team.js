@@ -9,7 +9,7 @@ const defaultUser = {
 };
 
 const gabriel = {
-	name: 'gabriel_cohelo',
+	name: 'GabrielisOnline',
 	twitter: 'https://twitter.com/GabrielisOnline',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
@@ -27,7 +27,7 @@ const visual = {
 };
 
 const crew_nft = {
-	name: 'Crew_NFT',
+	name: 'CrewNFT',
 	twitter: 'https://twitter.com/crew_nft',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',
@@ -59,7 +59,7 @@ const tip = {
 };
 
 const dot = {
-	name: 'DOT_THE_BOT',
+	name: 'Dot the Bot',
 	twitter: 'https://twitter.com/digidot',
 	image: '/images/pages/team/cb-02588.png',
 	thumbnail: '/images/pages/team/thumbnail-default.png',

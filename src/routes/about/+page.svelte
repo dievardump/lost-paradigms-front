@@ -22,12 +22,12 @@
 				</div>
 				<p>
 					Lost Paradigms is a collection of 10,001 high quality, unique generative pieces of art
-					perfectly sized for twitter banners.
+					perfectly sized for Twitter banners.
 				</p>
 				<div class="story">
 					<p>
 						Each NFT visually tells the story of one or more of the scenes from the lore of the
-						Cyberbrokers' universe.
+						CyberBrokers universe.
 					</p>
 					<img src="/images/pages/about/lp-combined.png" alt="Banners Combined" />
 				</div>

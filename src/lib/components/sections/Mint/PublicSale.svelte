@@ -45,7 +45,7 @@
 			<p class="time-info">WEDNESDAY, NOVEMBER 9, 2020</p>
 			<div class="wrapper">
 				<div class="info">
-					<div class="live">12:00<span>EST</span></div>
+					<div class="live">17:00<span>UTC</span></div>
 					<div class="eth-logo"><img src="/images/interface/logo-ethereum.svg" alt="" /></div>
 					<div class="price">{PRICE}</div>
 				</div>

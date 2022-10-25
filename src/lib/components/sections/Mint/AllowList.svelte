@@ -168,14 +168,14 @@
 						<div class="box__line">
 							<div class="box__cell">
 								<div class="label">
-									<strong>08/11</strong>
+									<strong>08 NOV</strong>
 									<span>2022</span>
 								</div>
 							</div>
 							<div class="box__cell">
 								<div class="label">
-									<strong>12:00</strong>
-									<span>EST</span>
+									<strong>17:00</strong>
+									<span>UTC</span>
 								</div>
 							</div>
 						</div>
