@@ -153,7 +153,9 @@
 	}
 
 	.answer :global(strong),
-	.answer :global(a) {
+	.answer :global(a),
+	.answer-in :global(strong),
+	.answer-in :global(a) {
 		color: var(--blue);
 	}
 

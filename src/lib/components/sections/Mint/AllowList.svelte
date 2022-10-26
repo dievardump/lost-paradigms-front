@@ -12,6 +12,7 @@
 		getFreeMintClaimed,
 		getUserAllowlistMinted
 	} from '$lib/modules/contracts/nft';
+	import { shortenAddress } from '$lib/modules/utils';
 
 	export let state = '';
 
@@ -120,7 +121,7 @@
 			{#if !userAllotment}
 				<div class="nolist">
 					<p>No allowlist found for wallet</p>
-					<p>{$signerAddress}</p>
+					<p><strong>{shortenAddress($signerAddress)}</strong></p>
 				</div>
 			{:else if max == 0}
 				<p>You already minted your full allocation.</p>
@@ -219,7 +220,8 @@
 	}
 
 	.wrapper {
-		width: 440px;
+		max-width: 440px;
+		width: calc(100% - 1em);
 		@apply flex flex-col gap-4;
 	}
 

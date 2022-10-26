@@ -54,7 +54,7 @@
 					Maximum of 10 mints per wallet.<br /> All minters will be responsible to pay ethereum gas fees.
 				</p>
 				<a
-					href="https://premint.xyz"
+					href="https://www.premint.xyz/lost-paradigms-1/"
 					rel="external noreferrer"
 					target="_blank"
 					class="enter-premint"
@@ -105,7 +105,8 @@
 	}
 
 	.wrapper {
-		width: 440px;
+		max-width: 440px;
+		width: calc(100% - 1em);
 		@apply flex flex-col gap-6;
 	}
 
