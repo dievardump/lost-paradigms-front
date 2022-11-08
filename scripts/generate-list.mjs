@@ -10,7 +10,8 @@ const accounts = [
 	'0x9ef4314BEb6bab7236eAaaa261747c7cD5885372', //dot
 	'0x7B7D2B971a7aF3F5fb96F3047d04E4D5DaE86fB4', //etta
 	'0xF4274229bEe63d4A6D1edDE6919aFa815f6e1a24', // dvdtest
-	'0x3443Ab9A6bc24EE3C7B196E3080082bb21d9Ba6F' // visual
+	'0x3443Ab9A6bc24EE3C7B196E3080082bb21d9Ba6F', // visual
+	'0xD1edDfcc4596CC8bD0bd7495beaB9B979fc50336'
 ];
 
 async function signAllowance(account, freeMints, reducedMints) {

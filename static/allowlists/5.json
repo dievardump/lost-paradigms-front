@@ -1,32 +1,37 @@
 {
 	"0xD969F09fe55FfB0e64954fc51E2D8af764caa8b0": {
-		"freeMints": 4,
-		"reducedMints": 13,
-		"signature": "0x274f7ff9ba33434bad5a9572a6d9a65be59f8dcbcc23c3070b350779af168fb473e11de7b3c8b430e0dae3237dc17400772149f83e7323cd019e77df5f5b5d821c"
+		"freeMints": 3,
+		"reducedMints": 18,
+		"signature": "0x09bfc2564d3646acb3dc13bebb003616068cb76979c2fa1303dc1facb1d2b2a47d50c9b2414a178279adebf4c63d1800bafb2ad746a8fa572985f92f4315a3751c"
 	},
 	"0x3a71c05b9666e49B5dC15Df245b6D16D8F66f710": {
-		"freeMints": 5,
-		"reducedMints": 14,
-		"signature": "0xa2191b0339772e3adcd9d86f4fa5f7f1014ba05a9586a197e0eabf65d8cee32d0b86044e7ffceca8b0f7b1eed302655c0d1b118972692990217fc36ad26037661c"
+		"freeMints": 4,
+		"reducedMints": 16,
+		"signature": "0xa287102a29e903c7cb2f3039fcd203d2bc9e0f767ed6c414a9920f5a3189eaf4010c5a66d69b3dd85286e659fb8c4e32c63baf596e753927a850a0c8a73a5f641c"
 	},
 	"0x9ef4314BEb6bab7236eAaaa261747c7cD5885372": {
-		"freeMints": 1,
-		"reducedMints": 9,
-		"signature": "0xfa8d52d3fa41fffe4b523b56471f8db895afeeffac827a0ba7d6fa34c2f6f11f0b075fc284a3fb919e7991da60293e94da96e1e09038691d7f86f3effad83feb1b"
+		"freeMints": 3,
+		"reducedMints": 3,
+		"signature": "0xdf494b5b51c2a011b527fc4d44807e39feae4a44e82b39f1cbf19889632d4e5c7e1cdd3ae3c865adb9c6e559cbc35b684cc7e65b3de51d090ed3f429762205fd1c"
 	},
 	"0x7B7D2B971a7aF3F5fb96F3047d04E4D5DaE86fB4": {
-		"freeMints": 1,
-		"reducedMints": 10,
-		"signature": "0xb968c9958f1ecfac5d2f2fe1c186f90eec88a9b4b65aa7854363bded7fc9f3d1441cc3f7328a73e5488632166c0e27480120f59a21d35587a996104b9d775c571c"
+		"freeMints": 3,
+		"reducedMints": 6,
+		"signature": "0xfc130e333ad238e756ab31039e800ae048b30c30c4add6ac13af8590c14ef7a022f0f8ff0924db176594fc369505ae0fb27b06bbcdc9fc0625a1f4585586ed481c"
 	},
 	"0xF4274229bEe63d4A6D1edDE6919aFa815f6e1a24": {
 		"freeMints": 4,
-		"reducedMints": 5,
-		"signature": "0x08320dddf08b5db2aa97626773e954bdecea45f368cec81c36e5e266b801dc6773a915239ab7034c3302efd8091e23fc2d964a3af6f4340a64ec537747dc91691b"
+		"reducedMints": 10,
+		"signature": "0xbb6a72d08c28f1d2b06640f5192a766d6befa1976b60377307a3f353a993403f3412a8310e37f43bec3268bf5407d61ce7814b90f4c0948a87dd9d7ad66ac6cc1b"
 	},
 	"0x3443Ab9A6bc24EE3C7B196E3080082bb21d9Ba6F": {
-		"freeMints": 5,
-		"reducedMints": 17,
-		"signature": "0xeaf2d24640043e92ca70a49670e6f1b8946392e7c521d2bca8d68caefbcb30f3024f1d3a084f4ecf7ad0851aa3e2a2fed6a4442c3db1f75bc381b0007881f4161b"
+		"freeMints": 4,
+		"reducedMints": 2,
+		"signature": "0xa98f54fb78a153e70641108621a8e4805092290254a0ec2798930915a149d679619f42733250c8cd74c50b899e0016ba0ec95400c85d6f2fb853095985e1151e1b"
+	},
+	"0xD1edDfcc4596CC8bD0bd7495beaB9B979fc50336": {
+		"freeMints": 3,
+		"reducedMints": 13,
+		"signature": "0x614da86ed07a13bd899d8c0402e662b853df40d0579f847052ec9841d6dada16717ff2fdf3c7bfe7e90d655e63090cc1d1c97ff4fc3efd36b4b3c745f9eda5d61b"
 	}
 }

@@ -17,7 +17,7 @@
 		<div class="content">
 			<div class="top">
 				<div class="title">
-					<img src="/images/pages/about/2_51.png" alt="2 51" />
+					<img src="/images/pages/about/2_51.png" alt="Space Shuttle" />
 					<img src="/images/pages/about/title-3d.png" alt="3D Art & Storytelling" />
 				</div>
 				<p>
@@ -30,6 +30,18 @@
 						CyberBrokers universe.
 					</p>
 					<img src="/images/pages/about/lp-combined.png" alt="Banners Combined" />
+				</div>
+				<div>
+					<h3>Online 3D Gallery</h3>
+					<div>
+						<a
+							href="https://spatial.io/s/Lost-Paradigms-NFT-633e269756b230000156e478?share=5825343165129494887
+						"
+							target="_blank"
+							rel="external noreferrer"
+							><img src="/images/pages/about/gallery.png" alt="3D Gallery" /></a
+						>
+					</div>
 				</div>
 			</div>
 			<Faq />
@@ -100,6 +112,10 @@
 
 	.story img {
 		@apply col-span-2;
+	}
+
+	h3 {
+		@apply pb-4;
 	}
 
 	@screen sm {

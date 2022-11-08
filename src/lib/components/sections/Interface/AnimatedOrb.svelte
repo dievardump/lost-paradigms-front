@@ -1,10 +1,11 @@
 <script>
+	import { browser } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
 
-	/**
-	 * @type {NodeJS.Timeout}
-	 */
-	let timeout;
+	const FPS = 1000 / 25;
+	let frame;
+
+	let lastAnimation = 0;
 
 	let from = 0;
 	let to = 0;
@@ -30,19 +31,28 @@
 	}
 
 	function onAnimate() {
-		let a = Math.min(1, (Date.now() - startTime) / duration);
+		let a = 0;
+		const now = Date.now();
 
-		angle = ~~(from + (to - from) * a);
+		if (now - lastAnimation > FPS) {
+			a = Math.min(1, (Date.now() - startTime) / duration);
+			angle = ~~(from + (to - from) * a);
+			lastAnimation = now;
+		}
 
 		if (a >= 1) {
-			timeout = setTimeout(start, 1000 / 25);
+			frame = requestAnimationFrame(start);
 		} else {
-			timeout = setTimeout(onAnimate, 1000 / 25);
+			frame = requestAnimationFrame(onAnimate);
 		}
 	}
 
 	onMount(start);
-	onDestroy(() => clearTimeout(timeout));
+	onDestroy(() => {
+		if (browser) {
+			cancelAnimationFrame(frame);
+		}
+	});
 </script>
 
 <img style="transform: rotate({angle}deg);" src="/images/interface/animated-orb.svg" alt="" />

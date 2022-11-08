@@ -61,8 +61,8 @@
 </script>
 
 <svelte:head>
-	<title>Lost Paradigms | Mint</title>
-	<meta name="description" content="Lost Paradigms | Mint" />
+	<title>Lost Paradigms | Generative 3D Banners</title>
+	<meta name="description" content="Lost Paradigms | Generative 3D Banners" />
 </svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

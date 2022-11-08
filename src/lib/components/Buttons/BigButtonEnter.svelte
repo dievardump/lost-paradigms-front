@@ -54,6 +54,7 @@
 		on:focus={() => (hover = true)}
 		on:mouseout={() => (hover = false)}
 		on:blur={() => (hover = false)}
+		name="enter the paradigm, connect wallet"
 	>
 		{#if $signer}
 			{shortenAddress($signerAddress)}

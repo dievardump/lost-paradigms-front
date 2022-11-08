@@ -9,16 +9,4 @@
 </div>
 
 <style lang="postcss">
-	.bars__wraper {
-		@apply flex flex-col-reverse;
-	}
-
-	.bar {
-		width: 100%;
-		height: 3px;
-		background-color: #fff;
-		opacity: 1;
-		transition: opacity 0.7s;
-		margin-top: 2px;
-	}
 </style>

@@ -1,18 +1,19 @@
 <script>
-	import ButtonAddToCalendar from '$lib/components/Buttons/ButtonAddToCalendar.svelte';
-	import MintBox from './MintBox.svelte';
+	import { openModal } from 'yasp-modals';
 
-	import MobilePageBg from '../MobilePageBg.svelte';
-
-	import { chainId, signerAddress } from '$lib/modules/wallet';
-	import Loader from '$lib/components/utils/Loader.svelte';
 	import {
 		allowlistMint,
-		getAllowlistPrice,
-		getFreeMintClaimed,
-		getUserAllowlistMinted
+		getAddressMintCounts,
+		getAllowlistPrice
 	} from '$lib/modules/contracts/nft';
 	import { shortenAddress } from '$lib/modules/utils';
+	import Loader from '$lib/components/utils/Loader.svelte';
+	import { chainId, signerAddress } from '$lib/modules/wallet';
+	import ButtonAddToCalendar from '$lib/components/Buttons/ButtonAddToCalendar.svelte';
+
+	import MintBox from './MintBox.svelte';
+	import MobilePageBg from '../MobilePageBg.svelte';
+	import TransactionModal from '$lib/components/modals/TransactionModal.svelte';
 
 	export let state = '';
 
@@ -36,11 +37,15 @@
 	let amount = availableFree + availableReduced;
 	let max = amount;
 
+	let anotherWallet;
+
 	$: price = PRICE.mul(Math.max(0, amount - availableFree));
 	$: priceLabel = price == 0 ? 'FREE' : `${ethers.utils.formatEther(price)} ETH`;
 
+	$: selectedWallet = anotherWallet || $signerAddress;
+
 	$: fetchData($chainId);
-	$: selectUserAllotment(allowlist, $signerAddress);
+	$: selectUserAllotment(allowlist, selectedWallet);
 
 	async function fetchData(chainId) {
 		loading = true;
@@ -54,17 +59,17 @@
 		loading = false;
 	}
 
-	async function selectUserAllotment(allowlist, signerAddress) {
+	async function selectUserAllotment(allowlist, walletToCheck) {
 		loading = true;
 		try {
-			userAllotment = allowlist?.[signerAddress];
+			userAllotment = allowlist?.[walletToCheck];
 			freeAllotment = userAllotment?.freeMints ?? 0;
 			reducedAllotment = userAllotment?.reducedMints ?? 0;
 
 			// now remove how many free this user already minted
-			console.log(signerAddress);
-			const userFreeMinted = await getFreeMintClaimed(signerAddress);
-			const userAllowListMinted = await getUserAllowlistMinted(signerAddress);
+			const counts = await getAddressMintCounts(walletToCheck);
+			const userFreeMinted = counts.freeMinted;
+			const userAllowListMinted = counts.allowlistMinted;
 
 			availableFree = freeAllotment - userFreeMinted;
 			availableReduced = reducedAllotment - userAllowListMinted;
@@ -81,32 +86,41 @@
 	}
 
 	async function onSubmit() {
-		// TODO: open mint modal
-		loading = true;
-		try {
-			const freeToMint = Math.min(amount, availableFree);
-			const reducedToMint = Math.max(0, amount - availableFree);
+		openModal(TransactionModal, {
+			title: `Allowlist Mint`,
+			txFn: async () => {
+				const freeToMint = Math.min(amount, availableFree);
+				const reducedToMint = Math.max(0, amount - availableFree);
 
-			console.log(freeToMint, reducedToMint);
+				return allowlistMint(
+					{
+						signature,
+						mintToAddress: selectedWallet,
+						freeMintAllowance: freeAllotment,
+						allowListAllowance: reducedAllotment,
+						freeMintCount: freeToMint,
+						paidMintCount: reducedToMint
+					},
+					price
+				);
+			},
+			callback: (error) => {
+				console.log(error);
+				selectUserAllotment(allowlist, selectedWallet);
+			}
+		});
+	}
 
-			const tx = await allowlistMint(
-				signature,
-				freeAllotment,
-				reducedAllotment,
-				freeToMint,
-				reducedToMint,
-				price
-			);
-
-			console.log(tx.hash);
-
-			const receipt = await tx.wait();
-			console.log(receipt);
-		} catch (e) {
-			console.log(e);
+	async function onSelectAnotherWallet() {
+		anotherWallet = null;
+		let selected = prompt('Please enter the address you want to mint for:');
+		if (selected) {
+			try {
+				anotherWallet = ethers.utils.getAddress(selected.toLocaleLowerCase());
+			} catch (e) {
+				console.log(e);
+			}
 		}
-		loading = false;
-		selectUserAllotment(allowlist, $signerAddress);
 	}
 </script>
 
@@ -121,12 +135,18 @@
 			{#if !userAllotment}
 				<div class="nolist">
 					<p>No allowlist found for wallet</p>
-					<p><strong>{shortenAddress($signerAddress)}</strong></p>
+					<p><strong>{shortenAddress(selectedWallet)}</strong></p>
+					<button class="another" on:click={onSelectAnotherWallet}
+						><em>I want to mint for another wallet</em></button
+					>
 				</div>
 			{:else if max == 0}
-				<p>You already minted your full allocation.</p>
+				<p>The wallet {shortenAddress(selectedWallet)} already minted its full allocation.</p>
+				<button class="another" on:click={onSelectAnotherWallet}
+					><em>I want to mint for another wallet</em></button
+				>
 			{:else}
-				<p>this wallet has a mint allotment of:</p>
+				<p>{shortenAddress(selectedWallet)} has a mint allotment of:</p>
 				<div class="wrapper">
 					<div class="box allotment">
 						<div class="box__line">
@@ -155,6 +175,9 @@
 						</div>
 					</div>
 				</div>
+				<button class="another" on:click={onSelectAnotherWallet}
+					><em>I want to mint for another wallet</em></button
+				>
 			{/if}
 			<div class="wrapper">
 				{#if userAllotment && state == 'ongoing'}
@@ -264,6 +287,11 @@
 
 	.nolist {
 		@apply py-6 text-center;
+	}
+
+	.another {
+		text-decoration: underline;
+		font-size: var(--font-xs);
 	}
 
 	@screen sm {

@@ -1,5 +1,16 @@
 export default [
 	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_vrfHandler',
+				type: 'address'
+			}
+		],
+		stateMutability: 'nonpayable',
+		type: 'constructor'
+	},
+	{
 		inputs: [],
 		name: 'AllowlistNotActive',
 		type: 'error'
@@ -31,12 +42,12 @@ export default [
 	},
 	{
 		inputs: [],
-		name: 'FreeMintAlreadyClaimed',
+		name: 'MaxAllocationExceeded',
 		type: 'error'
 	},
 	{
 		inputs: [],
-		name: 'MaxAllocationExceeded',
+		name: 'MaxFreeAllocationExceeded',
 		type: 'error'
 	},
 	{
@@ -119,7 +130,131 @@ export default [
 		name: 'UnrecognizedHash',
 		type: 'error'
 	},
-
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'approved',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'Approval',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'operator',
+				type: 'address'
+			},
+			{
+				indexed: false,
+				internalType: 'bool',
+				name: 'approved',
+				type: 'bool'
+			}
+		],
+		name: 'ApprovalForAll',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'uint256',
+				name: 'fromTokenId',
+				type: 'uint256'
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'toTokenId',
+				type: 'uint256'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			}
+		],
+		name: 'ConsecutiveTransfer',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'previousOwner',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'newOwner',
+				type: 'address'
+			}
+		],
+		name: 'OwnershipTransferred',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				indexed: true,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'Transfer',
+		type: 'event'
+	},
 	{
 		inputs: [],
 		name: 'ALLOWLIST_TOKEN_PRICE',
@@ -175,29 +310,41 @@ export default [
 	{
 		inputs: [
 			{
-				internalType: 'bytes',
-				name: '_signature',
-				type: 'bytes'
-			},
-			{
-				internalType: 'uint256',
-				name: '_freemintAllowance',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: '_allowListAllowance',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: '_freeMintCount',
-				type: 'uint256'
-			},
-			{
-				internalType: 'uint256',
-				name: '_paidMintCount',
-				type: 'uint256'
+				components: [
+					{
+						internalType: 'bytes',
+						name: 'signature',
+						type: 'bytes'
+					},
+					{
+						internalType: 'address',
+						name: 'mintToAddress',
+						type: 'address'
+					},
+					{
+						internalType: 'uint256',
+						name: 'freeMintAllowance',
+						type: 'uint256'
+					},
+					{
+						internalType: 'uint256',
+						name: 'allowListAllowance',
+						type: 'uint256'
+					},
+					{
+						internalType: 'uint256',
+						name: 'freeMintCount',
+						type: 'uint256'
+					},
+					{
+						internalType: 'uint256',
+						name: 'paidMintCount',
+						type: 'uint256'
+					}
+				],
+				internalType: 'struct LostParadigms.AllowListMintParams',
+				name: 'p',
+				type: 'tuple'
 			}
 		],
 		name: 'allowListMint',
@@ -222,11 +369,29 @@ export default [
 		inputs: [
 			{
 				internalType: 'address',
-				name: '',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'approve',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'owner',
 				type: 'address'
 			}
 		],
-		name: 'freeMintClaimed',
+		name: 'balanceOf',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -235,6 +400,33 @@ export default [
 			}
 		],
 		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'burn',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'flipAllowListActive',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'flipPublicMintActive',
+		outputs: [],
+		stateMutability: 'nonpayable',
 		type: 'function'
 	},
 	{
@@ -254,16 +446,102 @@ export default [
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_address',
+				type: 'address'
+			}
+		],
+		name: 'getAddressMintCounts',
+		outputs: [
+			{
+				components: [
+					{
+						internalType: 'uint256',
+						name: 'publicMinted',
+						type: 'uint256'
+					},
+					{
+						internalType: 'uint256',
+						name: 'allowlistMinted',
+						type: 'uint256'
+					},
+					{
+						internalType: 'uint256',
+						name: 'freeMinted',
+						type: 'uint256'
+					}
+				],
+				internalType: 'struct LostParadigms.MintCounts',
+				name: '',
+				type: 'tuple'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'getApproved',
+		outputs: [
+			{
+				internalType: 'address',
 				name: '',
 				type: 'address'
 			}
 		],
-		name: 'numberAllowListMinted',
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'getFinaleIds',
 		outputs: [
 			{
-				internalType: 'uint256',
+				internalType: 'uint256[]',
 				name: '',
-				type: 'uint256'
+				type: 'uint256[]'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'owner',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'operator',
+				type: 'address'
+			}
+		],
+		name: 'isApprovedForAll',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'name',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
 			}
 		],
 		stateMutability: 'view',
@@ -289,19 +567,89 @@ export default [
 		type: 'function'
 	},
 	{
-		inputs: [
+		inputs: [],
+		name: 'owner',
+		outputs: [
 			{
 				internalType: 'address',
 				name: '',
 				type: 'address'
 			}
 		],
-		name: 'numberPublicMinted',
-		outputs: [
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
 			{
 				internalType: 'uint256',
-				name: '',
+				name: '_numberToMint',
 				type: 'uint256'
+			}
+		],
+		name: 'ownerMint',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_recipient',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: '_numberToMint',
+				type: 'uint256'
+			}
+		],
+		name: 'ownerMintToAddress',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'ownerOf',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'provenanceHash',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'provenanceMetadata',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
 			}
 		],
 		stateMutability: 'view',
@@ -313,6 +661,11 @@ export default [
 				internalType: 'bytes',
 				name: '_signature',
 				type: 'bytes'
+			},
+			{
+				internalType: 'address',
+				name: 'mintToAddress',
+				type: 'address'
 			},
 			{
 				internalType: 'uint256',
@@ -340,12 +693,228 @@ export default [
 	},
 	{
 		inputs: [],
+		name: 'renounceOwnership',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'safeTransferFrom',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			},
+			{
+				internalType: 'bytes',
+				name: '_data',
+				type: 'bytes'
+			}
+		],
+		name: 'safeTransferFrom',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'operator',
+				type: 'address'
+			},
+			{
+				internalType: 'bool',
+				name: 'approved',
+				type: 'bool'
+			}
+		],
+		name: 'setApprovalForAll',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: 'baseURI',
+				type: 'string'
+			}
+		],
+		name: 'setBaseURI',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'bytes32',
+				name: 'newProvenanceHash',
+				type: 'bytes32'
+			}
+		],
+		name: 'setProvenanceHash',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: 'newProvenanceMetadata',
+				type: 'string'
+			}
+		],
+		name: 'setProvenanceMetadata',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_signatureVerifier',
+				type: 'address'
+			}
+		],
+		name: 'setSignatureVerifier',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'newVRFHandler',
+				type: 'address'
+			}
+		],
+		name: 'setVRFHandler',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'seed',
+				type: 'uint256'
+			},
+			{
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256'
+			}
+		],
+		name: 'shuffle',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]'
+			}
+		],
+		stateMutability: 'pure',
+		type: 'function'
+	},
+	{
+		inputs: [],
 		name: 'signatureVerifier',
 		outputs: [
 			{
 				internalType: 'address',
 				name: '',
 				type: 'address'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'bytes4',
+				name: 'interfaceId',
+				type: 'bytes4'
+			}
+		],
+		name: 'supportsInterface',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'tokenURI',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string'
 			}
 		],
 		stateMutability: 'view',
@@ -362,6 +931,80 @@ export default [
 			}
 		],
 		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address'
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256'
+			}
+		],
+		name: 'transferFrom',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'newOwner',
+				type: 'address'
+			}
+		],
+		name: 'transferOwnership',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'vrfHandler',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'withdrawFunds',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_address',
+				type: 'address'
+			},
+			{
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256'
+			}
+		],
+		name: 'withdrawFundsToAddress',
+		outputs: [],
+		stateMutability: 'nonpayable',
 		type: 'function'
 	}
 ];

@@ -11,9 +11,11 @@
 		<span style={`border-width: ${Math.max(1, ~~(size / 10))}px;`} />
 		<span style={`border-width: ${Math.max(1, ~~(size / 10))}px;`} />
 	</div>
-	{#if text}
-		<p>{text}</p>
-	{/if}
+	<slot>
+		{#if text}
+			<p>{text}</p>
+		{/if}
+	</slot>
 </div>
 
 <style>

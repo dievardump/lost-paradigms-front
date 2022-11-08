@@ -11,16 +11,20 @@ signer.subscribe((value) => {
 	}
 });
 
-export function getFreeMintClaimed(account) {
-	return contract.freeMintClaimed(account).then((a) => a.toNumber());
-}
-
-export function getUserAllowlistMinted(account) {
-	return contract.numberAllowListMinted(account).then((a) => a.toNumber());
+export function getAddressMintCounts(account) {
+	return contract.getAddressMintCounts(account).then((counts) => ({
+		publicMinted: counts.publicMinted.toNumber(),
+		allowlistMinted: counts.allowlistMinted.toNumber(),
+		freeMinted: counts.freeMinted.toNumber()
+	}));
 }
 
 export function getAllowlistPrice() {
 	return contract.ALLOWLIST_TOKEN_PRICE();
+}
+
+export function getPublicPrice() {
+	return contract.PUBLIC_TOKEN_PRICE();
 }
 
 export function isAllowlistMintActive() {
@@ -31,29 +35,14 @@ export function isPublicMintActive() {
 	return contract.publicMintActive();
 }
 
-export async function allowlistMint(
-	signature,
-	freeAllotment,
-	reducedAllotment,
-	free,
-	reduced,
-	value
-) {
-	try {
-		await contract.callStatic.allowListMint(
-			signature,
-			freeAllotment,
-			reducedAllotment,
-			free,
-			reduced,
-			{
-				value
-			}
-		);
-	} catch (e) {
-		console.log(e);
-	}
-	return contract.allowListMint(signature, freeAllotment, reducedAllotment, free, reduced, {
+export async function allowlistMint(allowListMintParams, value) {
+	return contract.allowListMint(allowListMintParams, {
+		value
+	});
+}
+
+export async function publicMint(signature, to, amount, value) {
+	return contract.publicMint(signature, to, amount, {
 		value
 	});
 }

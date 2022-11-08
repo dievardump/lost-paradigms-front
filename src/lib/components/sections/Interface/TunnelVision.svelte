@@ -1,39 +1,8 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
-	import Bars from './Bars.svelte';
-
-	const FPS = 1000 / 10;
-
-	/**
-	 * @type {string | number | NodeJS.Timeout | undefined}
-	 */
-	let timeout = undefined;
-
-	let bars = [0, 0, 0, 0];
-
-	function setBars() {
-		for (let i = 0; i < bars.length; i++) {
-			bars[i] = !bars[i] || Math.random() < 0.3 ? 1 + Math.random() * 15 : bars[i];
-		}
-
-		bars = bars;
-	}
-	function onAnimate() {
-		setBars();
-		timeout = setTimeout(onAnimate, FPS);
-	}
-
-	onMount(onAnimate);
-
-	onDestroy(() => clearTimeout(timeout));
+	import bars from '$lib/actions/bars';
 </script>
 
-<div class="bars">
-	<Bars on={bars[0]} />
-	<Bars on={bars[1]} />
-	<Bars on={bars[2]} />
-	<Bars on={bars[3]} />
-</div>
+<div class="bars" use:bars />
 <span>TUNNEL VISITON / 2022</span>
 
 <style lang="postcss">
@@ -44,5 +13,18 @@
 
 	span {
 		font-size: var(--font-xs);
+	}
+
+	.bars :global(.bars__wraper) {
+		@apply flex flex-col-reverse;
+	}
+
+	.bars :global(.bar) {
+		width: 100%;
+		height: 3px;
+		background-color: #fff;
+		opacity: 1;
+		transition: opacity 0.7s;
+		margin-top: 2px;
 	}
 </style>

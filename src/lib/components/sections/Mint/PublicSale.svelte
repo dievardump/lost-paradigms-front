@@ -1,20 +1,74 @@
 <script>
-	import MobilePageBg from '../MobilePageBg.svelte';
+	import { openModal } from 'yasp-modals';
+
 	import MintBox from './MintBox.svelte';
+	import MobilePageBg from '../MobilePageBg.svelte';
+
+	import { chainId, signerAddress } from '$lib/modules/wallet';
+	import { getAddressMintCounts, getPublicPrice, publicMint } from '$lib/modules/contracts/nft';
+	import TransactionModal from '$lib/components/modals/TransactionModal.svelte';
 
 	export let state = '';
 
 	const PRICE = 0.0333;
-
 	const MAX_MINT = 10;
+
+	let userLeftToMint = 0;
 
 	let amount = 1;
 	let price = 0;
 	let priceLabel = 'invalid';
 
+	let loading;
+	let anotherWallet;
+
+	$: selectedWallet = anotherWallet || $signerAddress;
+
 	$: {
 		price = amount * PRICE;
 		priceLabel = `${price.toFixed(4)} ETH`;
+	}
+
+	$: checkWalletMinted(selectedWallet);
+
+	async function checkWalletMinted(walletToCheck) {
+		userLeftToMint = MAX_MINT - (await getAddressMintCounts(walletToCheck)).publicMinted;
+	}
+
+	async function onSubmit() {
+		openModal(TransactionModal, {
+			title: `Public Mint`,
+			txFn: async () => {
+				// get a signature
+				const data = await fetch('/api/signature', {
+					method: 'POST',
+					body: JSON.stringify({ account: selectedWallet }),
+					headers: {
+						'content-type': 'application/json'
+					}
+				}).then((res) => res.json());
+
+				const { signature } = data;
+
+				const price = await getPublicPrice();
+				return await publicMint(signature, selectedWallet, amount, price.mul(amount));
+			},
+			callback: (error) => {
+				checkWalletMinted(selectedWallet);
+			}
+		});
+	}
+
+	async function onSelectAnotherWallet() {
+		anotherWallet = null;
+		let selected = prompt('Please enter the address you want to mint for:');
+		if (selected) {
+			try {
+				anotherWallet = ethers.utils.getAddress(selected.toLocaleLowerCase());
+			} catch (e) {
+				console.log(e);
+			}
+		}
 	}
 </script>
 
@@ -25,6 +79,9 @@
 		<h1><span>_</span>PUBLIC SALE<span>_</span></h1>
 		{#if state == 'ongoing'}
 			<p class="time-info">REVEAL WILL BE 4 DAYS AFTER LAUNCH</p>
+			<button class="another" on:click={onSelectAnotherWallet}
+				><em>I want to mint for another wallet</em></button
+			>
 			<div class="wrapper">
 				<div class="box ">
 					<div class="box__line info">
@@ -39,7 +96,7 @@
 					Maximum of 10 mints per wallet.<br />All minters will be responsible to pay ethereum gas
 					fees.
 				</p>
-				<MintBox bind:amount {MAX_MINT} price={priceLabel} on:submit />
+				<MintBox bind:amount max={userLeftToMint} price={priceLabel} on:submit={onSubmit} />
 			</div>
 		{:else}
 			<p class="time-info">WEDNESDAY, NOVEMBER 9, 2020</p>
@@ -102,6 +159,11 @@
 
 	.time-info {
 		@apply my-4;
+	}
+
+	.another {
+		text-decoration: underline;
+		font-size: var(--font-xs);
 	}
 
 	.wrapper {
